@@ -1,2 +1,15 @@
 <button class="enableEthereumButton" (click)="waitForAccount()">Enable Ethereum</button>
 <h2>Account: <span class="showAccount"></span></h2>
+
+<button class="enableEthereumButton" (click)="selectedAddress()">Enable Ethereum</button>
+<h2>selectedAddress: <span class="selectedAddress"></span></h2>
+
+<br><br>
+
+Send token to:
+<input type="text" name="to" #to value="0xFE3B557E8Fb62b89F4916B721be55cEb828dBd73"><br>
+Value:
+<input type="text" name="val" #val> <br>
+
+ <button (click)="sendTransaction(to.value, val.value)">
+  Send Eth</button>
