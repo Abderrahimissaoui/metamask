@@ -1,0 +1,78 @@
+
+<div class="pick-up-address">
+
+  <div class="form-row">
+    <div class="address">
+      <h2>Choose my pick-up address:</h2>
+      <div class="form-col">
+        <label for="city">City:</label>
+        <select id="city" name="city" [(ngModel)]="selectedCity" (change)="updateAirportAddress()">
+          <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+        </select>
+      </div>
+      <div class="form-col">
+        <label for="address">Pick-up address:</label>
+        <select id="address" name="address" [(ngModel)]="selectedAddress">
+          <option *ngFor="let address of pickupAddresses" [value]="address">{{address}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="date">
+      <h2>Choose date & time:</h2>
+      <div class="form-col">
+        <label for="start-date">Start date:</label>
+        <input type="datetime-local" id="start-date" name="start-date" [(ngModel)]="selectedStartDate" required (change)="onEndDateChange()">
+      </div>
+      <div class="form-col">
+        <label for="end-date">End date:</label>
+        <input type="datetime-local" id="end-date" name="end-date" [(ngModel)]="selectedEndDate" required  (change)="onEndDateChange()">
+        <div *ngIf="!isValidDates" class="error-message">
+          Invalid date range.
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <button type="button" class="see-available-cars" (click)="getCarCategories()">See available cars</button>
+
+
+<div *ngIf="searchStarted">
+  <h2>Choose a car category:</h2>
+  <div class="car-categories" *ngIf="!loading">
+    <div class="car-category" *ngFor="let category of carCategories">
+      <label>
+        <input type="radio" name="carCategory" [value]="category.selected" (click)="onCarCategoryChange(category)">
+        <img [src]="category.photoUrl" alt="{{category.name}} photo">
+        <div class="car-details">
+          <h3>{{category.name}}</h3>
+          <p><strong>Total cost:</strong> {{calculateDuration() * category.hourlyCost}} €</p>
+          <p><strong>Hourly cost:</strong> {{category.hourlyCost}} €</p>
+          <p><strong>Fuel:</strong> {{category.fuel}}</p>
+          <p><strong>Seats:</strong> {{category.seats}}</p>
+          <p><strong>Gear type:</strong> {{category.gearType}}</p>
+          <p><strong>Minimum age:</strong> {{category.minimumAge}}</p>
+          <ng-container *ngIf="category.selected">
+          <span class="">You will be
+            allocated a car from this category based on availability. Categories give you an idea of the size and comfort of a
+            car. </span>
+          <ul>
+            <li class="">Unlimited free fueling and charging included</li>
+            <li class="">Home Area parking is always FREE</li>
+            <li class="">No need to fill up or charge when returning the car</li>
+            <li class="">GPS &amp; automatic transmission</li>
+            <li class="">Drop off anywhere in the Home Area</li>
+          </ul>
+          <button type="button">
+            <span class="">Select</span></button>
+          </ng-container>
+          </div>
+      </label>
+    </div>
+  </div>
+  <div class="spinner-container" *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
+</div>
+</div>
