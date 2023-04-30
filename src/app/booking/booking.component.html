@@ -42,8 +42,9 @@
   <h2>Choose a car category:</h2>
   <div class="car-categories" *ngIf="!loading">
     <div class="car-category" *ngFor="let category of carCategories">
-      <label>
-        <input type="radio" name="carCategory" [value]="category.selected" (click)="onCarCategoryChange(category)">
+      <label class="car-category-label">
+        <input type="radio" name="carCategory" [value]="category.selected" (click)="onCarCategoryChange(category)" class="hidden-radio">
+        <div class="car-category-content">
         <img [src]="category.photoUrl" alt="{{category.name}} photo">
         <div class="car-details">
           <h3>{{category.name}}</h3>
@@ -68,6 +69,7 @@
             <span class="">Select</span></button>
           </ng-container>
           </div>
+        </div>
       </label>
     </div>
   </div>
